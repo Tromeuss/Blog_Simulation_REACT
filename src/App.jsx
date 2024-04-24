@@ -1,6 +1,5 @@
 import { useHashNavigation } from "./components/useHashNavigation"
 import {Home} from "./pages/home"
-import {Single} from "./pages/single"
 import {Contact} from "./pages/contact"
 import {NotFound} from "./pages/notFound"
 import { Header } from "./components/header"
@@ -25,7 +24,10 @@ function getPageContent ({page, param}) { //? Fonction qui me permet de récupé
         return <Home />
     }
     if (page === 'post') {
-        return <Single postID={param} />
+        const SingleLazy = lazy(() => import('./pages/single')) //? Importe le composant SingleLazy de manière asynchrone seulement lorsque la page est appelée.
+        return <Suspense fallback = {<div>Chargement des composants</div>}> 
+            <SingleLazy postID={param} />
+        </Suspense>
     }
     if (page === 'contact') {
         return <Contact />
