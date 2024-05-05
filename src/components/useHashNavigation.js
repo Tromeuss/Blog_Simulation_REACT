@@ -12,8 +12,7 @@ export function useHashNavigation() {
     }, [])
 
     const cleanHash = hash.replaceAll('#', '') //? Parse le hash de l'URL pour ne garder que le nom de la page et son ID.
-    return { 
-        page: cleanHash ? cleanHash.split('/')[0] : 'home',
-        param: cleanHash ? cleanHash.split('/')[1] : null
-    }
+    const page = cleanHash ? cleanHash.split('/')[0] : 'home'
+    const param = cleanHash ? cleanHash.split('/')[1] : null
+    return {page, param}
 }

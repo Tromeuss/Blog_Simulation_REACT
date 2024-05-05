@@ -4,7 +4,7 @@ import { useToggle } from '../components/useToggle'
 import { Modal } from '../components/modal'
 import { EditPostModal } from './editPostModal'
 
-export function Single ({postID}) {
+export default function Single ({postID}) {
     
     const {datas, loading, error, setDatas} = useFetch(`https://jsonplaceholder.typicode.com/posts/${postID}`) //? Fonction qui me permet de récupérer les données d'un post en fonction de l'ID
     const [isEditing, toggleEditing] = useToggle(false) //? Fonction qui me permet de switcher entre true et false
@@ -31,10 +31,10 @@ export function Single ({postID}) {
             </div>
             </div>}
         {datas && <div className='d-flex justify-content-center flex-column align-items-center'>
-        <h1 className="text-center mb-3">{datas.title}</h1>
-        <img className="img-fluid img-thumbnail my-3" src={`https://picsum.photos/id/${datas.id}/800/600`} alt="" />
-        <p className='text-center'>{datas.body}</p> 
-        {isEditing && <EditPostModal post = {datas} onClose={toggleEditing} onSave={handleSave}/>}
+            <h1 className="text-center mb-3">{datas.title}</h1>
+            <img className="img-fluid img-thumbnail my-3" src={`https://picsum.photos/id/${datas.id}/800/600`} alt="" />
+            <p className='text-center'>{datas.body}</p>
+        {isEditing && <EditPostModal post = {datas} onClose={toggleEditing} onSave={handleSave}/> }
         <div>
         <a href={`#post/${datas.id > 1 ? datas.id - 1 : datas.id}`} type="button" className="btn btn-primary btn-sm">Article précedent</a>
         <button type="button" className="ms-2 btn btn-outline-secondary" onClick={toggleEditing}>Edit</button>

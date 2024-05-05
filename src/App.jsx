@@ -3,6 +3,8 @@ import {Home} from "./pages/home"
 import {Contact} from "./pages/contact"
 import {NotFound} from "./pages/notFound"
 import { Header } from "./components/header"
+import { Suspense, lazy } from "react"
+// import { QueryClient, QueryClientProvider } from "react-query"
 import React from "react"
 
 function App() {
@@ -18,15 +20,16 @@ function App() {
     )
 }
 
+const SingleLazy = lazy(() => import('./pages/single')) //? Importe le composant SingleLazy de manière asynchrone seulement lorsque la page est appelée.
 
 function getPageContent ({page, param}) { //? Fonction qui me permet de récupérer le contenu de la page en fonction de la page et de son ID.
     if (page === 'home') {
         return <Home />
     }
     if (page === 'post') {
-        const SingleLazy = lazy(() => import('./pages/single')) //? Importe le composant SingleLazy de manière asynchrone seulement lorsque la page est appelée.
+        console.log(typeof param)
         return <Suspense fallback = {<div>Chargement des composants</div>}> 
-            <SingleLazy postID={param} />
+            <SingleLazy postID = {param} />
         </Suspense>
     }
     if (page === 'contact') {
